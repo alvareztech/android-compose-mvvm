@@ -5,10 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.Composable
@@ -23,25 +20,42 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import tech.alvarez.employeedirectory.model.Employee
 
-
 @Composable
 fun EmployeesScreen(
-    modifier: Modifier = Modifier,
     viewModel: EmployeesViewModel,
     onItemClick: (String) -> Unit
 ) {
     val employees by viewModel.employees.observeAsState(emptyList())
     val isRefreshing by viewModel.isRefreshing.observeAsState(false)
-    if (employees.isEmpty()) {
-        EmptyMessage()
-    } else {
-        EmployeeLazyColumn(viewModel, employees, isRefreshing, onItemClick)
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Directory") },
+                actions = {
+                    IconButton(onClick = {
+
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Info,
+                            contentDescription = null
+                        )
+                    }
+                }
+            )
+        },
+    ) { paddingValues ->
+        if (employees.isEmpty()) {
+            EmptyMessage(modifier = Modifier.padding(paddingValues), isRefreshing = isRefreshing)
+        } else {
+            EmployeeItems(viewModel, employees, isRefreshing, onItemClick)
+        }
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun EmployeeLazyColumn(
+fun EmployeeItems(
     viewModel: EmployeesViewModel,
     employees: List<Employee>,
     isRefreshing: Boolean,
@@ -70,14 +84,18 @@ fun EmployeeLazyColumn(
 }
 
 @Composable
-fun EmptyMessage() {
+fun EmptyMessage(modifier: Modifier, isRefreshing: Boolean) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-        Icon(imageVector = Icons.Default.Info, contentDescription = null, tint = Color.Gray)
-        Text(text = "No Employees", style = MaterialTheme.typography.caption)
+        if (isRefreshing) {
+            CircularProgressIndicator()
+        } else {
+            Icon(imageVector = Icons.Default.Info, contentDescription = null, tint = Color.Gray)
+            Text(text = "No Employees", style = MaterialTheme.typography.caption)
+        }
     }
 }
 
@@ -91,13 +109,14 @@ fun HeaderList(title: String) {
     )
 }
 
+@Preview(showBackground = true, widthDp = 200, heightDp = 200)
 @Composable
-fun LoadingView() {
-    CircularProgressIndicator()
+fun LoadingViewPreview() {
+    EmptyMessage(modifier = Modifier, isRefreshing = true)
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, widthDp = 200, heightDp = 200)
 @Composable
 fun EmptyMessagePreview() {
-    EmptyMessage()
+    EmptyMessage(modifier = Modifier, isRefreshing = false)
 }
