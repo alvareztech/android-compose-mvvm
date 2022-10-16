@@ -5,15 +5,15 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class Employee(
-    @field:Json(name = "uuid") var uuid: String,
-    @field:Json(name = "full_name") var fullName: String,
-    @field:Json(name = "phone_number") var phoneNumber: String?,
-    @field:Json(name = "email_address") var emailAddress: String,
-    @field:Json(name = "biography") var biography: String?,
-    @field:Json(name = "photo_url_small") var photoUrlSmall: String?,
-    @field:Json(name = "photo_url_large") var photoUrlLarge: String?,
-    @field:Json(name = "team") var team: String,
-    @field:Json(name = "employee_type") var employeeType: EmployeeType,
+    @Json(name = "uuid") var uuid: String,
+    @Json(name = "full_name") var fullName: String,
+    @Json(name = "phone_number") var phoneNumber: String?,
+    @Json(name = "email_address") var emailAddress: String,
+    @Json(name = "biography") var biography: String?,
+    @Json(name = "photo_url_small") var photoUrlSmall: String?,
+    @Json(name = "photo_url_large") var photoUrlLarge: String?,
+    @Json(name = "team") var team: String,
+    @Json(name = "employee_type") var employeeType: EmployeeType,
 )
 
 enum class EmployeeType(val title: String) {

@@ -3,7 +3,7 @@ package tech.alvarez.employeedirectory
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import retrofit2.Retrofit
-import tech.alvarez.employeedirectory.network.EmployeesService
+import tech.alvarez.employeedirectory.network.EmployeesApi
 import tech.alvarez.employeedirectory.network.RetrofitHelper
 
 class RetrofitClientTest {
@@ -17,7 +17,7 @@ class RetrofitClientTest {
     @Test
     fun testEmployeesService() {
         runTest {
-            val service = RetrofitHelper.retrofit.create(EmployeesService::class.java)
+            val service = RetrofitHelper.retrofit.create(EmployeesApi::class.java)
             val response = service.getEmployees()
 
             val errorBody = response.errorBody()

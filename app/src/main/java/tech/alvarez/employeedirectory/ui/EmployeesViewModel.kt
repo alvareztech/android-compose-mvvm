@@ -1,6 +1,7 @@
 package tech.alvarez.employeedirectory.ui
 
 import androidx.lifecycle.*
+import com.squareup.moshi.JsonDataException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import tech.alvarez.employeedirectory.data.employees.EmployeesRepository
@@ -24,11 +25,15 @@ class EmployeesViewModel(private val repository: EmployeesRepository) : ViewMode
 
         viewModelScope.launch {
             delay(3000)
-            val response = repository.fetchEmployees()
-            _isRefreshing.value = false
-            if (response.isSuccessful) {
+            try {
+                val response = repository.fetchEmployees()
+                if (response.isSuccessful) {
+                    _employees.postValue(response.body()?.employees!!)
+                }
+            } catch (e: JsonDataException) {
+                _employees.postValue(emptyList())
+            } finally {
                 _isRefreshing.value = false
-                _employees.postValue(response.body()?.employees!!)
             }
         }
     }
