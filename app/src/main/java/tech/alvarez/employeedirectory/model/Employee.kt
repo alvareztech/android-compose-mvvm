@@ -1,7 +1,9 @@
 package tech.alvarez.employeedirectory.model
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class Employee(
     @field:Json(name = "uuid") var uuid: String,
     @field:Json(name = "full_name") var fullName: String,

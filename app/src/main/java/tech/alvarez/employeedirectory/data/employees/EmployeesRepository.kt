@@ -10,6 +10,6 @@ class EmployeesRepository {
 
     suspend fun fetchEmployees(): Response<EmployeeList> {
         val network = RetrofitHelper.retrofit.create(EmployeesService::class.java)
-        return network.getEmployees()
+        return network.getEmployeesMalformed()
     }
 }

@@ -18,4 +18,10 @@ object RetrofitHelper {
 interface EmployeesService {
     @GET("/sq-mobile-interview/employees.json")
     suspend fun getEmployees(): Response<EmployeeList>
+
+    @GET("/sq-mobile-interview/employees_malformed.json")
+    suspend fun getEmployeesMalformed(): Response<EmployeeList>
+
+    @GET("/sq-mobile-interview/employees_empty.json")
+    suspend fun getEmployeesEmpty(): Response<EmployeeList>
 }

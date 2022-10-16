@@ -8,7 +8,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.navigation.compose.rememberNavController
 import tech.alvarez.employeedirectory.ui.EmployeesViewModel
 import tech.alvarez.employeedirectory.ui.EmployeesViewModelFactory
 import tech.alvarez.employeedirectory.ui.MainContainer

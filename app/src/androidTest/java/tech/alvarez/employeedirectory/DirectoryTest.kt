@@ -1,7 +1,6 @@
 package tech.alvarez.employeedirectory
 
 import android.content.Context
-import androidx.activity.viewModels
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
@@ -11,9 +10,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import tech.alvarez.employeedirectory.ui.EmployeesViewModel
-import tech.alvarez.employeedirectory.ui.EmployeesViewModelFactory
-import tech.alvarez.employeedirectory.ui.MainContainer
 
 @RunWith(AndroidJUnit4::class)
 class DirectoryTest {

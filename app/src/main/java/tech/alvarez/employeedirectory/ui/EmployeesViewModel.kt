@@ -25,6 +25,7 @@ class EmployeesViewModel(private val repository: EmployeesRepository) : ViewMode
         viewModelScope.launch {
             delay(3000)
             val response = repository.fetchEmployees()
+            _isRefreshing.value = false
             if (response.isSuccessful) {
                 _isRefreshing.value = false
                 _employees.postValue(response.body()?.employees!!)
