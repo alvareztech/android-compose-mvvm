@@ -1,13 +1,10 @@
-package tech.alvarez.employeedirectory.data
+package tech.alvarez.employeedirectory
 
 import android.content.Context
+import tech.alvarez.employeedirectory.data.AppContainer
 import tech.alvarez.employeedirectory.data.employees.EmployeesRepository
 
-interface AppContainer {
-    val employeesRepository: EmployeesRepository
-}
-
-class AppContainerImpl(private val context: Context) : AppContainer {
+class TestAppContainer(private val context: Context) : AppContainer {
 
     override val employeesRepository: EmployeesRepository by lazy {
         EmployeesRepository()
