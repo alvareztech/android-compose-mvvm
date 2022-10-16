@@ -1,26 +1,32 @@
-package tech.alvarez.employeedirectory
+package tech.alvarez.employeedirectory.viewmodels
 
 import android.util.Log
-import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import tech.alvarez.employeedirectory.EmployeesService
+import tech.alvarez.employeedirectory.RetrofitHelper
 import tech.alvarez.employeedirectory.model.Employee
 
 class DirectoryViewModel : ViewModel() {
-    private val _employees = MutableLiveData<List<Employee>>()
-    val employees: LiveData<List<Employee>>
-        get() = _employees
+    private val _isRefreshing = MutableLiveData(false)
+    val isRefreshing: LiveData<Boolean> = _isRefreshing
 
-    fun getEmployee(uuid: String) : Employee? {
+    private val _employees = MutableLiveData<List<Employee>>()
+    val employees: LiveData<List<Employee>> = _employees
+
+    fun getEmployee(uuid: String): Employee? {
         return _employees.value?.first { it.uuid == uuid }
     }
 
     fun loadEmployees() {
-        val network = RetrofitHelper.retrofit.create(EmployeesApi::class.java)
+        _isRefreshing.value = true
+        val network = RetrofitHelper.retrofit.create(EmployeesService::class.java)
         viewModelScope.launch {
             val result = network.getEmployees()
             Log.d("daniel", result.message())
@@ -28,7 +34,16 @@ class DirectoryViewModel : ViewModel() {
             for (a in result.body()?.employees!!) {
                 Log.d("daniel", a.toString())
             }
+            _isRefreshing.value = false
             _employees.postValue(result.body()?.employees!!)
+        }
+    }
+
+    fun refresh() {
+        _isRefreshing.value = true
+        GlobalScope.launch(context = Dispatchers.Main) {
+            delay(3000)
+            _isRefreshing.value = false
         }
     }
 }

@@ -1,4 +1,4 @@
-package tech.alvarez.employeedirectory
+package tech.alvarez.employeedirectory.ui
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import tech.alvarez.employeedirectory.model.Employee
+import tech.alvarez.employeedirectory.model.EmployeeType
 import tech.alvarez.employeedirectory.ui.theme.AlvarezTheme
 
 @Composable
@@ -74,7 +75,7 @@ fun Default2Preview() {
         photoUrlSmall = "",
         photoUrlLarge = "",
         team = "Square Team",
-        employeeType = ""
+        employeeType = EmployeeType.CONTRACTOR
     )
     AlvarezTheme {
         Surface {
@@ -95,7 +96,7 @@ fun Default23Preview() {
         photoUrlSmall = "",
         photoUrlLarge = "",
         team = "Square Team",
-        employeeType = ""
+        employeeType = EmployeeType.PART_TIME
     )
     EmployeeItem(employee = employee, onClick = {})
 }

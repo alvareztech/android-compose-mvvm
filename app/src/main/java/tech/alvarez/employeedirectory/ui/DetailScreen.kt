@@ -1,13 +1,17 @@
-package tech.alvarez.employeedirectory
+package tech.alvarez.employeedirectory.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,12 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import tech.alvarez.employeedirectory.ui.theme.AlvarezTheme
-
-//TopAppBar(title = { Text(text = "Details") }, navigationIcon = {
-//    IconButton(onClick = { onBackClick() }) {
-//        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
-//    }
-//})
+import tech.alvarez.employeedirectory.viewmodels.DirectoryViewModel
 
 @Composable
 fun DetailScreen(
@@ -57,18 +56,26 @@ fun DetailScreen(
                 }
             }
         }
-    ) {
+    ) { paddingValues ->
         Column(
             modifier = Modifier
+                .padding(paddingValues)
                 .fillMaxSize()
-                .padding(16.dp)
         ) {
-            employee?.let {
-                ContactItem(it.biography, Icons.Default.Info)
-                ContactItem(it.team, Icons.Default.Info)
-                ContactItem(it.phoneNumber, Icons.Default.Phone)
-                ContactItem(it.emailAddress, Icons.Default.Email)
-                ContactItem(it.employeeType, Icons.Default.Add)
+            employee?.biography?.let {
+                ContactItem(it, Icons.Default.Info)
+            }
+            employee?.team?.let {
+                ContactItem(it, Icons.Default.Info)
+            }
+            employee?.phoneNumber?.let {
+                ContactItem(it, Icons.Default.Phone)
+            }
+            employee?.emailAddress?.let {
+                ContactItem(it, Icons.Default.Email)
+            }
+            employee?.employeeType?.let {
+                ContactItem(it.title, Icons.Default.Info)
             }
         }
     }
@@ -80,14 +87,15 @@ fun ContactItem(value: String, icon: ImageVector) {
         Modifier
             .clickable { }
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(horizontal = 8.dp, vertical = 16.dp)
 
     ) {
         Icon(
             imageVector = icon,
             contentDescription = null,
             modifier = Modifier
-                .padding(horizontal = 8.dp)
+                .padding(horizontal = 8.dp),
+            tint = Color.DarkGray
         )
         Text(
             value,

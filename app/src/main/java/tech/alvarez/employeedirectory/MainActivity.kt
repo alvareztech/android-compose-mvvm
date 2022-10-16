@@ -18,7 +18,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import tech.alvarez.employeedirectory.ui.DetailScreen
+import tech.alvarez.employeedirectory.ui.EmployeesScreen
 import tech.alvarez.employeedirectory.ui.theme.AlvarezTheme
+import tech.alvarez.employeedirectory.viewmodels.DirectoryViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,13 +29,12 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             val viewModel: DirectoryViewModel by viewModels()
+            viewModel.loadEmployees()
 
             val navController = rememberNavController()
             NavHost(navController = navController, startDestination = "main") {
                 composable("main") {
-
                     AlvarezTheme {
-                        // A surface container using the 'background' color from the theme
                         Surface(
                             modifier = Modifier.fillMaxSize(),
                             color = MaterialTheme.colors.background
@@ -44,7 +46,6 @@ class MainActivity : ComponentActivity() {
                                         actions = {
                                             IconButton(onClick = {
 
-                                                viewModel.loadEmployees()
                                             }) {
                                                 Icon(
                                                     imageVector = Icons.Default.Info,
