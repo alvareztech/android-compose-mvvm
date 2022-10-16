@@ -13,6 +13,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import tech.alvarez.employeedirectory.ui.EmployeesViewModel
 import tech.alvarez.employeedirectory.ui.EmployeesViewModelFactory
+import tech.alvarez.employeedirectory.ui.MainContainer
 
 @RunWith(AndroidJUnit4::class)
 class DirectoryTest {
@@ -21,11 +22,17 @@ class DirectoryTest {
 
     @Before
     fun setUp() {
-//        composeTestRule.launchJetNewsApp(ApplicationProvider.getApplicationContext())
+        composeTestRule.launchJetNewsApp(ApplicationProvider.getApplicationContext())
     }
 
     @Test
     fun app_launches() {
         composeTestRule.onNodeWithText("Top stories for you").assertExists()
+    }
+}
+
+fun ComposeContentTestRule.launchJetNewsApp(context: Context) {
+    setContent {
+//        MainContainer(navController = , viewModel = )
     }
 }
