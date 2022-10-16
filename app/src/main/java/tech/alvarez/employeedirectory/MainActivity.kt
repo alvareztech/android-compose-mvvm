@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
@@ -53,8 +54,11 @@ class MainActivity : ComponentActivity() {
                                         }
                                     )
                                 },
-                            ) {
-                                EmployeesScreen(directoryViewModel = viewModel) {
+                            ) { paddingValues ->
+                                EmployeesScreen(
+                                    directoryViewModel = viewModel,
+                                    modifier = Modifier.padding(paddingValues)
+                                ) {
                                     Log.e("daniel", ">>> $it")
                                     navController.navigate("detail/$it")
                                 }

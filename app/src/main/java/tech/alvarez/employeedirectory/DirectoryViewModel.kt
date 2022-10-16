@@ -20,7 +20,7 @@ class DirectoryViewModel : ViewModel() {
     }
 
     fun loadEmployees() {
-        val network = RetrofitHelper.getInstance().create(EmployeesApi::class.java)
+        val network = RetrofitHelper.retrofit.create(EmployeesApi::class.java)
         viewModelScope.launch {
             val result = network.getEmployees()
             Log.d("daniel", result.message())
