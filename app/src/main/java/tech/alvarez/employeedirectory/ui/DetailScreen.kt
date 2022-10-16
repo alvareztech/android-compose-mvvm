@@ -19,15 +19,15 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import tech.alvarez.employeedirectory.ui.theme.AlvarezTheme
-import tech.alvarez.employeedirectory.viewmodels.DirectoryViewModel
+import tech.alvarez.employeedirectory.viewmodels.EmployeesViewModel
 
 @Composable
 fun DetailScreen(
     uuid: String,
-    directoryViewModel: DirectoryViewModel = viewModel(),
+    employeesViewModel: EmployeesViewModel = viewModel(),
     onBackClick: () -> Unit
 ) {
-    val employee = directoryViewModel.getEmployee(uuid)
+    val employee = employeesViewModel.getEmployee(uuid)
     Scaffold(
         topBar = {
             TopAppBar(modifier = Modifier.height(240.dp), contentPadding = PaddingValues(0.dp)) {

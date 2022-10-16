@@ -21,14 +21,23 @@ import androidx.navigation.navArgument
 import tech.alvarez.employeedirectory.ui.DetailScreen
 import tech.alvarez.employeedirectory.ui.EmployeesScreen
 import tech.alvarez.employeedirectory.ui.theme.AlvarezTheme
-import tech.alvarez.employeedirectory.viewmodels.DirectoryViewModel
+import tech.alvarez.employeedirectory.viewmodels.EmployeesViewModel
+import tech.alvarez.employeedirectory.viewmodels.EmployeesViewModelFactory
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val appContainer = (application as DirectoryApp).container
+
         setContent {
 
-            val viewModel: DirectoryViewModel by viewModels()
+            val viewModel: EmployeesViewModel by viewModels {
+                EmployeesViewModelFactory(appContainer.employeesRepository)
+            }
+//            val viewModel: EmployeesViewModel = viewModel(factory = EmployeesViewModel.provideFactory(appContainer.employeesRepository))
+
             viewModel.loadEmployees()
 
             val navController = rememberNavController()
@@ -57,7 +66,7 @@ class MainActivity : ComponentActivity() {
                                 },
                             ) { paddingValues ->
                                 EmployeesScreen(
-                                    directoryViewModel = viewModel,
+                                    viewModel = viewModel,
                                     modifier = Modifier.padding(paddingValues)
                                 ) {
                                     Log.e("daniel", ">>> $it")
@@ -73,7 +82,7 @@ class MainActivity : ComponentActivity() {
                 )) {
                     val uuid = it.arguments?.getString("uuid")
                     requireNotNull(uuid)
-                    DetailScreen(uuid, directoryViewModel = viewModel) {
+                    DetailScreen(uuid, employeesViewModel = viewModel) {
                         navController.popBackStack()
                     }
                 }

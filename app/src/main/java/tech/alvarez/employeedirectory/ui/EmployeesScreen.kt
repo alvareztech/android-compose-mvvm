@@ -19,32 +19,35 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import tech.alvarez.employeedirectory.model.Employee
-import tech.alvarez.employeedirectory.viewmodels.DirectoryViewModel
+import tech.alvarez.employeedirectory.viewmodels.EmployeesViewModel
+
 
 @Composable
 fun EmployeesScreen(
     modifier: Modifier = Modifier,
-    directoryViewModel: DirectoryViewModel = viewModel(),
+    viewModel: EmployeesViewModel,
     onItemClick: (String) -> Unit
 ) {
-    val employees by directoryViewModel.employees.observeAsState(emptyList())
+    val employees by viewModel.employees.observeAsState(emptyList())
+    val isRefreshing by viewModel.isRefreshing.observeAsState(false)
     if (employees.isEmpty()) {
         EmptyMessage()
     } else {
-        EmployeeLazyColumn(employees, onItemClick)
+        EmployeeLazyColumn(viewModel, employees, isRefreshing, onItemClick)
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun EmployeeLazyColumn(employees: List<Employee>, onItemClick: (String) -> Unit) {
-    val viewModel: DirectoryViewModel = viewModel()
-    val isRefreshing by viewModel.isRefreshing.observeAsState(false)
-
+fun EmployeeLazyColumn(
+    viewModel: EmployeesViewModel,
+    employees: List<Employee>,
+    isRefreshing: Boolean,
+    onItemClick: (String) -> Unit
+) {
     SwipeRefresh(
         state = rememberSwipeRefreshState(isRefreshing),
         onRefresh = { viewModel.refresh() },

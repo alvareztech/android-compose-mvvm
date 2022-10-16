@@ -1,19 +1,14 @@
 package tech.alvarez.employeedirectory.viewmodels
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import tech.alvarez.employeedirectory.EmployeesService
-import tech.alvarez.employeedirectory.RetrofitHelper
 import tech.alvarez.employeedirectory.model.Employee
+import tech.alvarez.employeedirectory.repository.EmployeesRepository
 
-class DirectoryViewModel : ViewModel() {
+class EmployeesViewModel(private val repository: EmployeesRepository) : ViewModel(){
     private val _isRefreshing = MutableLiveData(false)
     val isRefreshing: LiveData<Boolean> = _isRefreshing
 
@@ -26,16 +21,13 @@ class DirectoryViewModel : ViewModel() {
 
     fun loadEmployees() {
         _isRefreshing.value = true
-        val network = RetrofitHelper.retrofit.create(EmployeesService::class.java)
+
         viewModelScope.launch {
-            val result = network.getEmployees()
-            Log.d("daniel", result.message())
-            Log.d("daniel", result.body().toString())
-            for (a in result.body()?.employees!!) {
-                Log.d("daniel", a.toString())
+            val response = repository.fetchEmployees()
+            if (response.isSuccessful) {
+                _isRefreshing.value = false
+                _employees.postValue(response.body()?.employees!!)
             }
-            _isRefreshing.value = false
-            _employees.postValue(result.body()?.employees!!)
         }
     }
 
@@ -45,6 +37,21 @@ class DirectoryViewModel : ViewModel() {
             delay(3000)
             _isRefreshing.value = false
         }
+    }
+}
+
+
+class EmployeesViewModelFactory(
+    private val employeesRepository: EmployeesRepository
+) : ViewModelProvider.Factory {
+
+
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(EmployeesViewModel::class.java)) {
+            return EmployeesViewModel(employeesRepository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
 
