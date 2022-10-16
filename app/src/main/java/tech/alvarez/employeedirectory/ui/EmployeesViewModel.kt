@@ -1,8 +1,6 @@
-package tech.alvarez.employeedirectory.ui.list
+package tech.alvarez.employeedirectory.ui
 
 import androidx.lifecycle.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import tech.alvarez.employeedirectory.data.employees.EmployeesRepository
@@ -31,14 +29,6 @@ class EmployeesViewModel(private val repository: EmployeesRepository) : ViewMode
                 _isRefreshing.value = false
                 _employees.postValue(response.body()?.employees!!)
             }
-        }
-    }
-
-    fun refresh() {
-        _isRefreshing.value = true
-        GlobalScope.launch(context = Dispatchers.Main) {
-            delay(3000)
-            _isRefreshing.value = false
         }
     }
 }

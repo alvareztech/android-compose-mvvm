@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import tech.alvarez.employeedirectory.model.Employee
+import tech.alvarez.employeedirectory.ui.EmployeesViewModel
 
 @Composable
 fun EmployeesScreen(
@@ -30,19 +31,7 @@ fun EmployeesScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Directory") },
-                actions = {
-                    IconButton(onClick = {
-
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.Info,
-                            contentDescription = null
-                        )
-                    }
-                }
-            )
+            TopAppBar(title = { Text("Directory") })
         },
     ) { paddingValues ->
         if (employees.isEmpty()) {
@@ -63,7 +52,7 @@ fun EmployeeItems(
 ) {
     SwipeRefresh(
         state = rememberSwipeRefreshState(isRefreshing),
-        onRefresh = { viewModel.refresh() },
+        onRefresh = { viewModel.loadEmployees() },
     ) {
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -102,10 +91,12 @@ fun EmptyMessage(modifier: Modifier, isRefreshing: Boolean) {
 @Composable
 fun HeaderList(title: String) {
     Text(
-        title, modifier = Modifier
+        text = title.uppercase(),
+        modifier = Modifier
             .fillMaxWidth()
-            .background(Color.LightGray)
-            .padding(8.dp)
+            .background(MaterialTheme.colors.background)
+            .padding(8.dp),
+        style = MaterialTheme.typography.overline
     )
 }
 

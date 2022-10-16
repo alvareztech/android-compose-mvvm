@@ -1,9 +1,10 @@
 package tech.alvarez.employeedirectory.data.employees
 
 import retrofit2.Response
-import tech.alvarez.employeedirectory.EmployeesService
-import tech.alvarez.employeedirectory.RetrofitHelper
+
 import tech.alvarez.employeedirectory.model.EmployeeList
+import tech.alvarez.employeedirectory.network.EmployeesService
+import tech.alvarez.employeedirectory.network.RetrofitHelper
 
 class EmployeesRepository {
 

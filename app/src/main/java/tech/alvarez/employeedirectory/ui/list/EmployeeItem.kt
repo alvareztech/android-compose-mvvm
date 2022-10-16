@@ -28,7 +28,6 @@ fun EmployeeItem(employee: Employee, onClick: () -> Unit) {
             .clickable { onClick() }
             .padding(8.dp)
     ) {
-
         AsyncImage(
             model = employee.photoUrlSmall,
             contentDescription = null,

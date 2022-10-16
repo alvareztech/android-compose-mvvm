@@ -1,9 +1,10 @@
-package tech.alvarez.employeedirectory
+package tech.alvarez.employeedirectory.network
 
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import tech.alvarez.employeedirectory.BuildConfig
 import tech.alvarez.employeedirectory.model.EmployeeList
 
 object RetrofitHelper {
