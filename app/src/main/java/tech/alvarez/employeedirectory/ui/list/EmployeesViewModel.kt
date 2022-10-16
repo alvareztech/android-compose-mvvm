@@ -1,4 +1,4 @@
-package tech.alvarez.employeedirectory.viewmodels
+package tech.alvarez.employeedirectory.ui.list
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
@@ -6,9 +6,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import tech.alvarez.employeedirectory.model.Employee
-import tech.alvarez.employeedirectory.repository.EmployeesRepository
+import tech.alvarez.employeedirectory.data.employees.EmployeesRepository
 
-class EmployeesViewModel(private val repository: EmployeesRepository) : ViewModel(){
+class EmployeesViewModel(private val repository: EmployeesRepository) : ViewModel() {
     private val _isRefreshing = MutableLiveData(false)
     val isRefreshing: LiveData<Boolean> = _isRefreshing
 
@@ -40,11 +40,9 @@ class EmployeesViewModel(private val repository: EmployeesRepository) : ViewMode
     }
 }
 
-
 class EmployeesViewModelFactory(
     private val employeesRepository: EmployeesRepository
 ) : ViewModelProvider.Factory {
-
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -54,13 +52,4 @@ class EmployeesViewModelFactory(
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
-
-
-fun getMockEmployees() = List(30) { i ->
-//    Employee(
-//        uuid = "Name$i",
-//        photoUrlSmall = "https://s3.amazonaws.com/sq-mobile-interview/photos/16c00560-6dd3-4af4-97a6-d4754e7f2394/small.jpg"
-//    )
-}
-
 

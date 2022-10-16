@@ -1,4 +1,4 @@
-package tech.alvarez.employeedirectory.ui
+package tech.alvarez.employeedirectory.ui.detail
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,8 +18,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import tech.alvarez.employeedirectory.ui.list.EmployeesViewModel
 import tech.alvarez.employeedirectory.ui.theme.AlvarezTheme
-import tech.alvarez.employeedirectory.viewmodels.EmployeesViewModel
 
 @Composable
 fun DetailScreen(
@@ -104,7 +104,6 @@ fun ContactItem(value: String, icon: ImageVector) {
         )
     }
 }
-
 
 @Preview
 @Composable

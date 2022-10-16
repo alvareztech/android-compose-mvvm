@@ -1,7 +1,7 @@
 package tech.alvarez.employeedirectory.data
 
 import android.content.Context
-import tech.alvarez.employeedirectory.repository.EmployeesRepository
+import tech.alvarez.employeedirectory.data.employees.EmployeesRepository
 
 interface AppContainer {
     val employeesRepository: EmployeesRepository

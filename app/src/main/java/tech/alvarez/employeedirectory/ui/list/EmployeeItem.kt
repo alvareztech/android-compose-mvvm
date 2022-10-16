@@ -1,4 +1,4 @@
-package tech.alvarez.employeedirectory.ui
+package tech.alvarez.employeedirectory.ui.list
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background

@@ -1,4 +1,4 @@
-package tech.alvarez.employeedirectory.ui
+package tech.alvarez.employeedirectory.ui.list
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import tech.alvarez.employeedirectory.model.Employee
-import tech.alvarez.employeedirectory.viewmodels.EmployeesViewModel
 
 
 @Composable

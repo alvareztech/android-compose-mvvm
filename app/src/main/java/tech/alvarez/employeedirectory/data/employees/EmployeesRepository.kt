@@ -1,4 +1,4 @@
-package tech.alvarez.employeedirectory.repository
+package tech.alvarez.employeedirectory.data.employees
 
 import retrofit2.Response
 import tech.alvarez.employeedirectory.EmployeesService

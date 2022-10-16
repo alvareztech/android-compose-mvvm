@@ -18,11 +18,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import tech.alvarez.employeedirectory.ui.DetailScreen
-import tech.alvarez.employeedirectory.ui.EmployeesScreen
+import tech.alvarez.employeedirectory.ui.detail.DetailScreen
+import tech.alvarez.employeedirectory.ui.list.EmployeesScreen
+import tech.alvarez.employeedirectory.ui.list.EmployeesViewModel
+import tech.alvarez.employeedirectory.ui.list.EmployeesViewModelFactory
 import tech.alvarez.employeedirectory.ui.theme.AlvarezTheme
-import tech.alvarez.employeedirectory.viewmodels.EmployeesViewModel
-import tech.alvarez.employeedirectory.viewmodels.EmployeesViewModelFactory
 
 
 class MainActivity : ComponentActivity() {
