@@ -28,7 +28,6 @@ class EmployeesViewModel : ViewModel() {
         _isRefreshing.value = true
         val network = RetrofitHelper.retrofit.create(EmployeesApi::class.java)
         viewModelScope.launch {
-            delay(3000)
             try {
                 val response = network.getEmployees()
                 if (response.isSuccessful) {

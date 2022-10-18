@@ -64,7 +64,7 @@ fun EmployeeItem(employee: Employee, onClick: () -> Unit) {
     heightDp = 200
 )
 @Composable
-fun Default2Preview() {
+fun EmployeeItemPreview() {
     val employee = Employee(
         uuid = "192873",
         fullName = "Daniel Alvarez",
@@ -85,7 +85,7 @@ fun Default2Preview() {
 
 @Preview(showBackground = true, widthDp = 400, heightDp = 200)
 @Composable
-fun Default23Preview() {
+fun EmployeeItemLargePreview() {
     val employee = Employee(
         uuid = "192873",
         fullName = "Daniel Alejandro Alvarez Aquino",

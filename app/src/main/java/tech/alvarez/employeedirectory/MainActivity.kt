@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                 isInitialized = true
                 viewModel.loadEmployees()
             }
-            MainContainer(viewModel = viewModel)
+            MainContainer(viewModel)
         }
     }
 }
