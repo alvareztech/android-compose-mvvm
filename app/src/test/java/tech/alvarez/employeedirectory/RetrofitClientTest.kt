@@ -1,6 +1,8 @@
 package tech.alvarez.employeedirectory
 
+import com.squareup.moshi.JsonDataException
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.fail
 import org.junit.Test
 import retrofit2.Retrofit
 import tech.alvarez.employeedirectory.network.EmployeesApi
@@ -26,6 +28,33 @@ class RetrofitClientTest {
             val responseWrapper = response.body()
             assert(responseWrapper != null)
             assert(response.code() == 200)
+        }
+    }
+
+    @Test
+    fun testEmptyEmployeesService() {
+        runTest {
+            val service = RetrofitHelper.retrofit.create(EmployeesApi::class.java)
+            val response = service.getEmployeesEmpty()
+
+            val errorBody = response.errorBody()
+            assert(errorBody == null)
+
+            val responseWrapper = response.body()
+            assert(responseWrapper != null)
+            assert(response.code() == 200)
+        }
+    }
+
+    @Test
+    fun testMalformedEmployeesService() {
+        runTest {
+            val service = RetrofitHelper.retrofit.create(EmployeesApi::class.java)
+            try {
+                service.getEmployeesMalformed()
+                fail("JsonDataException expected")
+            } catch (_: JsonDataException) {
+            }
         }
     }
 }

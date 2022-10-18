@@ -6,7 +6,7 @@ import org.junit.Test
 import tech.alvarez.employeedirectory.ui.EmployeesViewModel
 
 class EmployeesViewModelTest {
-    private val viewModel: EmployeesViewModel = EmployeesViewModel(EmployeesRepository())
+    private val viewModel: EmployeesViewModel = EmployeesViewModel()
 
     @Test
     fun testViewModelDefault() {

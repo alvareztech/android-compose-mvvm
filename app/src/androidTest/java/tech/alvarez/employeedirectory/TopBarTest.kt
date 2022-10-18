@@ -1,7 +1,10 @@
 package tech.alvarez.employeedirectory
 
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.printToLog
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
@@ -26,14 +29,22 @@ class TopBarTest {
     )
 
     @get:Rule
-    val composeTestRule = createComposeRule()
+    val composeTestRule = createAndroidComposeRule<MainActivity>()
 
     @Test
     fun testTopBar() {
+        composeTestRule.onNodeWithText(composeTestRule.activity.getString(R.string.app_name))
+            .assertIsDisplayed()
+
+        composeTestRule.onRoot().printToLog("TAG")
+    }
+
+    @Test
+    fun testSomething() {
         composeTestRule.setContent {
-//            EmployeeItem(employee = employee) {
-//
-//            }
+            EmployeeItem(employee = employee) {
+
+            }
         }
     }
 }
