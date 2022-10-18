@@ -1,13 +1,17 @@
 package tech.alvarez.employeedirectory.ui
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.squareup.moshi.JsonDataException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import tech.alvarez.employeedirectory.data.employees.EmployeesRepository
 import tech.alvarez.employeedirectory.model.Employee
+import tech.alvarez.employeedirectory.network.EmployeesApi
+import tech.alvarez.employeedirectory.network.RetrofitHelper
 
-class EmployeesViewModel(private val repository: EmployeesRepository) : ViewModel() {
+class EmployeesViewModel : ViewModel() {
     private val _isRefreshing = MutableLiveData(false)
     val isRefreshing: LiveData<Boolean>
         get() = _isRefreshing
@@ -22,11 +26,11 @@ class EmployeesViewModel(private val repository: EmployeesRepository) : ViewMode
 
     fun loadEmployees() {
         _isRefreshing.value = true
-
+        val network = RetrofitHelper.retrofit.create(EmployeesApi::class.java)
         viewModelScope.launch {
             delay(3000)
             try {
-                val response = repository.fetchEmployees()
+                val response = network.getEmployees()
                 if (response.isSuccessful) {
                     _employees.postValue(response.body()?.employees!!)
                 }
@@ -38,17 +42,3 @@ class EmployeesViewModel(private val repository: EmployeesRepository) : ViewMode
         }
     }
 }
-
-class EmployeesViewModelFactory(
-    private val employeesRepository: EmployeesRepository
-) : ViewModelProvider.Factory {
-
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(EmployeesViewModel::class.java)) {
-            return EmployeesViewModel(employeesRepository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
-

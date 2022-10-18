@@ -3,8 +3,6 @@ package tech.alvarez.employeedirectory
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
-import tech.alvarez.employeedirectory.data.employees.EmployeesRepository
-import tech.alvarez.employeedirectory.model.Employee
 import tech.alvarez.employeedirectory.ui.EmployeesViewModel
 
 class EmployeesViewModelTest {

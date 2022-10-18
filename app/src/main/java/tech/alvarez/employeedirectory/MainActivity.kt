@@ -9,19 +9,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import tech.alvarez.employeedirectory.ui.EmployeesViewModel
-import tech.alvarez.employeedirectory.ui.EmployeesViewModelFactory
 import tech.alvarez.employeedirectory.ui.MainContainer
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val appContainer = (application as DirectoryApp).container
-
         setContent {
-            val viewModel: EmployeesViewModel by viewModels {
-                EmployeesViewModelFactory(appContainer.employeesRepository)
-            }
+            val viewModel: EmployeesViewModel by viewModels()
             var isInitialized by rememberSaveable { mutableStateOf(false) }
             if (!isInitialized) {
                 isInitialized = true
