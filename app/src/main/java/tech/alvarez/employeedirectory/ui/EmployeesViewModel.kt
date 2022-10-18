@@ -32,7 +32,9 @@ class EmployeesViewModel : ViewModel() {
             try {
                 val response = network.getEmployees()
                 if (response.isSuccessful) {
-                    _employees.postValue(response.body()?.employees!!)
+                    _employees.postValue(response.body()?.employees ?: emptyList())
+                } else {
+                    _employees.postValue(emptyList())
                 }
             } catch (e: JsonDataException) {
                 _employees.postValue(emptyList())
