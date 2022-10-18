@@ -1,5 +1,7 @@
 # Employee Directory App
 
+By Daniel Alvarez, [alvarez.tech](https://alvarez.tech).
+
 ## Build tools & versions used
 
 Android SDK Build Tools version 33
