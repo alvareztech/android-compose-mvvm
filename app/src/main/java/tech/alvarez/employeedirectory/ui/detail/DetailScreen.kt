@@ -95,7 +95,7 @@ fun ContactItem(value: String, icon: ImageVector) {
             contentDescription = null,
             modifier = Modifier
                 .padding(horizontal = 8.dp),
-            tint = Color.DarkGray
+            tint = MaterialTheme.colors.onPrimary
         )
         Text(
             value,
