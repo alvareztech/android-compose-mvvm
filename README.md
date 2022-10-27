@@ -35,7 +35,7 @@ It was a good opportunity to test the new versions of the Jetpack libraries, amo
 
 ## How long did you spend on this project?
 
-Around 5 hours.
+About 5 hours split into different days.
 
 ## Did you make any trade-offs for this project? What would you have done differently with more time?
 
